@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/widgets/task_list.dart';
+import 'add_task_screen.dart';
 
 class TaskScreen extends StatelessWidget {
   @override
@@ -9,7 +10,10 @@ class TaskScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.blueAccent,
         floatingActionButton: FloatingActionButton(
-          onPressed: null,
+          onPressed: () {
+            showModalBottomSheet(
+                context: context, builder: (context) => AddTask());
+          },
           backgroundColor: Colors.blueAccent,
           child: Icon(
             Icons.add,
