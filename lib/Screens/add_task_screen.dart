@@ -2,8 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddTask extends StatelessWidget {
+  final Function addTaskCallback;
+
+  AddTask(this.addTaskCallback);
+
   @override
   Widget build(BuildContext context) {
+    late String newtask;
     return Flexible(
       child: Container(
         color: Color(0xff757575),
@@ -35,14 +40,18 @@ class AddTask extends StatelessWidget {
                     color: Colors.black54,
                     fontSize: 16,
                   ),
+                  onChanged: (newValue) {
+                    newtask = newValue;
+                  },
                 ),
                 SizedBox(height: 18.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(200, 50),
-                    maximumSize: const Size(200, 50),
-                  ),
-                  onPressed: () {},
+                TextButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.blueAccent)),
+                  onPressed: () {
+                    addTaskCallback(newtask);
+                  },
                   child: Text(
                     "Add",
                     style: TextStyle(

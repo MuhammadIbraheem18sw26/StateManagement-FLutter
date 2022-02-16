@@ -2,8 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/widgets/task_list.dart';
 import 'add_task_screen.dart';
+import 'package:todoapp/models/tasks.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
+  @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  List<Task> task = [
+    Task(taskName: 'Buy Milk'),
+    Task(
+      taskName: 'Bring Asfand From School',
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,7 +31,12 @@ class TaskScreen extends StatelessWidget {
                         child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTask(),
+                      child: AddTask((value) {
+                        setState(() {
+                          task.add(Task(taskName: value));
+                        });
+                        Navigator.pop(context);
+                      }),
                     )));
           },
           backgroundColor: Colors.blueAccent,
@@ -54,7 +72,7 @@ class TaskScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "12 tasks left",
+                    "${task.length} tasks left",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
@@ -73,7 +91,7 @@ class TaskScreen extends StatelessWidget {
                     topRight: Radius.circular(20.0),
                   ),
                 ),
-                child: TaskList(),
+                child: TaskList(task),
               ),
             )
           ],
