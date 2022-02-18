@@ -13,9 +13,8 @@ class TaskList extends StatelessWidget {
               isChecked: context.watch<TaskData>().task[index].isDone,
               taskTitle: context.watch<TaskData>().task[index].taskName,
               setCheckBox: (bool? value) {
-                // setState(() {
-                //   Provider.of<TaskData>(context).task[index].toggleTasks();
-                // });
+                Provider.of<TaskData>(context, listen: false).updateTask(
+                    Provider.of<TaskData>(context, listen: false).task[index]);
               });
         },
         itemCount: context.watch<TaskData>().taskCount);
