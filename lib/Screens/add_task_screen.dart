@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoapp/models/tasks_data.dart';
+import 'package:todoapp/models/tasks.dart';
 
 class AddTask extends StatelessWidget {
-  final Function addTaskCallback;
-
-  AddTask(this.addTaskCallback);
-
   @override
   Widget build(BuildContext context) {
     late String newtask;
@@ -46,12 +45,14 @@ class AddTask extends StatelessWidget {
                 ),
                 SizedBox(height: 18.0),
                 TextButton(
+                  onPressed: () {
+                    Provider.of<TaskData>(context, listen: false)
+                        .addTask(newtask);
+                    Navigator.pop(context);
+                  },
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(Colors.blueAccent)),
-                  onPressed: () {
-                    addTaskCallback(newtask);
-                  },
                   child: Text(
                     "Add",
                     style: TextStyle(
