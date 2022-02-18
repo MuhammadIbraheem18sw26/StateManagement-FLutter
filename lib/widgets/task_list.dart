@@ -10,12 +10,17 @@ class TaskList extends StatelessWidget {
     return ListView.builder(
         itemBuilder: (context, index) {
           return TaskTile(
-              isChecked: context.watch<TaskData>().task[index].isDone,
-              taskTitle: context.watch<TaskData>().task[index].taskName,
-              setCheckBox: (bool? value) {
-                Provider.of<TaskData>(context, listen: false).updateTask(
-                    Provider.of<TaskData>(context, listen: false).task[index]);
-              });
+            isChecked: context.watch<TaskData>().task[index].isDone,
+            taskTitle: context.watch<TaskData>().task[index].taskName,
+            setCheckBox: (bool? value) {
+              Provider.of<TaskData>(context, listen: false).updateTask(
+                  Provider.of<TaskData>(context, listen: false).task[index]);
+            },
+            longpress: () {
+              Provider.of<TaskData>(context, listen: false).deleteTask(
+                  Provider.of<TaskData>(context, listen: false).task[index]);
+            },
+          );
         },
         itemCount: context.watch<TaskData>().taskCount);
   }
